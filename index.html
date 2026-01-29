@@ -1,0 +1,765 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>株式会社Jecコンサルティング | 未来を動かすITコンサルティング</title>
+
+  <!-- Bootstrap (CDN) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg0:#070A12;
+      --bg1:#0A1022;
+      --card: rgba(255,255,255,.06);
+      --stroke: rgba(255,255,255,.12);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --accent:#7c5cff;
+      --accent2:#00d4ff;
+      --accent3:#00ffb2;
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+    }
+
+    body{
+      font-family: system-ui, -apple-system, "Segoe UI", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 800px at 15% -10%, rgba(124,92,255,.40), transparent 55%),
+        radial-gradient(900px 600px at 95% 5%, rgba(0,212,255,.30), transparent 50%),
+        radial-gradient(900px 600px at 70% 110%, rgba(0,255,178,.18), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      min-height: 100vh;
+      overflow-x:hidden;
+    }
+
+    /* Glass card */
+    .glass{
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 18px;
+    }
+
+    /* Navbar */
+    .navbar{
+      background: rgba(10,16,34,.55);
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .brand-badge{
+      width: 36px; height: 36px;
+      display:grid; place-items:center;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 10px 30px rgba(124,92,255,.28);
+      color:white;
+      font-weight:800;
+      letter-spacing:.02em;
+    }
+
+    /* Hero */
+    .hero{
+      position: relative;
+      padding-top: 7.2rem;
+      padding-bottom: 4.5rem;
+    }
+    .hero h1{
+      font-weight: 900;
+      letter-spacing: .01em;
+      line-height: 1.05;
+    }
+    .hero .lead{
+      color: var(--muted);
+    }
+    .grad-text{
+      background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+      -webkit-background-clip: text;
+      background-clip:text;
+      color: transparent;
+    }
+    .hero-visual{
+      position: relative;
+      height: 420px;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: var(--shadow);
+      background:
+        radial-gradient(900px 500px at 20% 20%, rgba(124,92,255,.45), transparent 50%),
+        radial-gradient(700px 500px at 80% 30%, rgba(0,212,255,.35), transparent 55%),
+        radial-gradient(700px 500px at 50% 90%, rgba(0,255,178,.22), transparent 50%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    }
+    .hero-grid{
+      position:absolute; inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+      background-size: 34px 34px;
+      opacity:.24;
+      mask-image: radial-gradient(circle at 50% 40%, black 0%, transparent 66%);
+      -webkit-mask-image: radial-gradient(circle at 50% 40%, black 0%, transparent 66%);
+    }
+    .floating{
+      position:absolute;
+      inset: 0;
+      pointer-events:none;
+      filter: drop-shadow(0 18px 30px rgba(0,0,0,.35));
+    }
+    .chip{
+      position:absolute;
+      padding: .7rem .9rem;
+      border-radius: 16px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display:flex; gap:.6rem; align-items:center;
+      font-size:.92rem;
+      color: rgba(255,255,255,.88);
+      animation: floaty 7s ease-in-out infinite;
+    }
+    .chip i{ color: rgba(255,255,255,.92); }
+    .chip:nth-child(1){ top: 18%; left: 12%; animation-delay: 0s;}
+    .chip:nth-child(2){ top: 58%; left: 10%; animation-delay: 1.2s;}
+    .chip:nth-child(3){ top: 26%; right: 10%; animation-delay: .8s;}
+    .chip:nth-child(4){ bottom: 14%; right: 12%; animation-delay: 1.6s;}
+
+    @keyframes floaty{
+      0%,100%{ transform: translateY(0px); }
+      50%{ transform: translateY(-14px); }
+    }
+
+    /* Section */
+    section{
+      scroll-margin-top: 90px;
+    }
+    .section-title{
+      font-weight: 850;
+      letter-spacing: .01em;
+    }
+    .section-sub{
+      color: var(--muted);
+    }
+
+    /* Feature cards */
+    .feature{
+      height: 100%;
+      transition: transform .18s ease, border-color .18s ease;
+    }
+    .feature:hover{
+      transform: translateY(-6px);
+      border-color: rgba(255,255,255,.22);
+    }
+    .icon-ring{
+      width: 46px; height: 46px;
+      border-radius: 14px;
+      display:grid; place-items:center;
+      background: linear-gradient(135deg, rgba(124,92,255,.35), rgba(0,212,255,.20));
+      border: 1px solid rgba(255,255,255,.12);
+    }
+
+    /* Timeline */
+    .timeline{
+      position: relative;
+      padding-left: 1.2rem;
+    }
+    .timeline:before{
+      content:"";
+      position:absolute; left: .35rem; top: .2rem; bottom: .2rem;
+      width: 2px;
+      background: linear-gradient(var(--accent), var(--accent2), transparent);
+      opacity: .65;
+    }
+    .t-item{
+      position:relative;
+      padding: .9rem 1rem;
+      border-radius: 16px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.10);
+      margin-bottom: .9rem;
+    }
+    .t-item:before{
+      content:"";
+      position:absolute;
+      left: -1.03rem;
+      top: 1.2rem;
+      width: 10px; height: 10px;
+      border-radius: 999px;
+      background: var(--accent2);
+      box-shadow: 0 0 0 6px rgba(0,212,255,.18);
+    }
+
+    /* Contact */
+    .form-control, .form-select{
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.14);
+      color: rgba(255,255,255,.92);
+    }
+    .form-control:focus, .form-select:focus{
+      background: rgba(255,255,255,.07);
+      border-color: rgba(0,212,255,.55);
+      box-shadow: 0 0 0 .25rem rgba(0,212,255,.15);
+      color: rgba(255,255,255,.92);
+    }
+    .form-control::placeholder{ color: rgba(255,255,255,.45); }
+
+    .btn-primary{
+      border: none;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      box-shadow: 0 14px 30px rgba(124,92,255,.22);
+    }
+    .btn-primary:hover{
+      filter: brightness(1.05);
+      transform: translateY(-1px);
+    }
+
+    /* Footer */
+    footer{
+      border-top: 1px solid rgba(255,255,255,.10);
+      background: rgba(10,16,34,.45);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    /* Small tweaks */
+    .badge-soft{
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.86);
+      font-weight: 600;
+    }
+
+    /* Smooth scroll */
+    html { scroll-behavior: smooth; }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAV -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#top">
+        <span class="brand-badge">J</span>
+        <span class="fw-bold">株式会社Jecコンサルティング</span>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2 mt-3 mt-lg-0">
+          <li class="nav-item"><a class="nav-link" href="#services">事業内容</a></li>
+          <li class="nav-item"><a class="nav-link" href="#strengths">強み</a></li>
+          <li class="nav-item"><a class="nav-link" href="#process">進め方</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">会社情報</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">お問い合わせ</a></li>
+          <li class="nav-item ms-lg-2">
+            <a class="btn btn-sm btn-primary px-3" href="#contact">
+              <i class="bi bi-send me-1"></i>無料相談
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="top" class="hero">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-6">
+          <div class="d-inline-flex align-items-center gap-2 mb-3">
+            <span class="badge badge-soft rounded-pill px-3 py-2">
+              <i class="bi bi-stars me-1"></i> IT × 戦略 × 実行
+            </span>
+            <span class="badge badge-soft rounded-pill px-3 py-2">Smart / Secure / Scalable</span>
+          </div>
+
+          <h1 class="display-5 mb-3">
+            未来を動かす、<span class="grad-text">超実装型</span><br class="d-none d-md-block">
+            コンサルティング
+          </h1>
+
+          <p class="lead mb-4">
+            株式会社Jecコンサルティングは、要件定義から設計・開発・運用改善までを一気通貫で支援します。<br class="d-none d-md-block">
+            “企画で終わらせない” 実装力で、成果に直結するDXを。
+          </p>
+
+          <div class="d-flex flex-column flex-sm-row gap-2">
+            <a class="btn btn-primary btn-lg px-4" href="#contact">
+              <i class="bi bi-chat-dots me-2"></i>お問い合わせ
+            </a>
+            <a class="btn btn-outline-light btn-lg px-4" href="#services">
+              <i class="bi bi-grid me-2"></i>サービスを見る
+            </a>
+          </div>
+
+          <div class="mt-4 d-flex flex-wrap gap-2">
+            <span class="badge badge-soft rounded-pill px-3 py-2"><i class="bi bi-shield-check me-1"></i>セキュリティ重視</span>
+            <span class="badge badge-soft rounded-pill px-3 py-2"><i class="bi bi-phone me-1"></i>モバイル最適化</span>
+            <span class="badge badge-soft rounded-pill px-3 py-2"><i class="bi bi-graph-up-arrow me-1"></i>成果志向</span>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="hero-visual">
+            <div class="hero-grid"></div>
+            <div class="floating">
+              <div class="chip"><i class="bi bi-cpu"></i><span>実装まで伴走</span></div>
+              <div class="chip"><i class="bi bi-lock"></i><span>セキュア設計</span></div>
+              <div class="chip"><i class="bi bi-cloud"></i><span>クラウド最適化</span></div>
+              <div class="chip"><i class="bi bi-lightning-charge"></i><span>高速PoC</span></div>
+            </div>
+
+            <!-- Decorative pseudo chart -->
+            <svg viewBox="0 0 900 420" class="w-100 h-100" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="g1" x1="0" x2="1">
+                  <stop offset="0" stop-color="#7c5cff" stop-opacity=".55"/>
+                  <stop offset="1" stop-color="#00d4ff" stop-opacity=".35"/>
+                </linearGradient>
+                <linearGradient id="g2" x1="0" x2="1">
+                  <stop offset="0" stop-color="#00d4ff" stop-opacity=".18"/>
+                  <stop offset="1" stop-color="#00ffb2" stop-opacity=".10"/>
+                </linearGradient>
+              </defs>
+              <path d="M0,310 C120,260 180,330 290,275 C390,220 470,260 560,220 C650,180 700,210 900,150 L900,420 L0,420 Z" fill="url(#g2)"/>
+              <path d="M0,330 C120,280 190,355 300,300 C400,245 500,300 590,255 C690,215 730,250 900,190" fill="none" stroke="url(#g1)" stroke-width="4" opacity=".8"/>
+              <circle cx="590" cy="255" r="7" fill="#00d4ff" opacity=".9"/>
+              <circle cx="300" cy="300" r="7" fill="#7c5cff" opacity=".9"/>
+              <circle cx="820" cy="215" r="7" fill="#00ffb2" opacity=".9"/>
+            </svg>
+          </div>
+
+          <div class="mt-3 small text-secondary-emphasis" style="color: rgba(255,255,255,.55)!important;">
+            <i class="bi bi-info-circle me-1"></i>
+            このページは提出用のサンプルです（Bootstrap利用 / スマホ対応）。
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- SERVICES -->
+  <section id="services" class="py-5">
+    <div class="container">
+      <div class="row align-items-end g-3 mb-4">
+        <div class="col-lg-7">
+          <h2 class="section-title mb-2">事業内容</h2>
+          <p class="section-sub mb-0">“コンサルだけ”で終わらせず、成果に繋がる設計と実装で支援します。</p>
+        </div>
+        <div class="col-lg-5 text-lg-end">
+          <span class="badge badge-soft rounded-pill px-3 py-2">
+            <i class="bi bi-award me-1"></i> 要件定義〜運用改善まで
+          </span>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-md-6 col-lg-3">
+          <div class="glass p-4 feature">
+            <div class="icon-ring mb-3"><i class="bi bi-diagram-3 fs-5"></i></div>
+            <h5 class="fw-bold">DX戦略 / 業務改善</h5>
+            <p class="mb-0 text-white-50">現状分析からTo-Be設計、ロードマップ作成、KPI設計まで。</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="glass p-4 feature">
+            <div class="icon-ring mb-3"><i class="bi bi-braces fs-5"></i></div>
+            <h5 class="fw-bold">Web/業務システム開発</h5>
+            <p class="mb-0 text-white-50">要件定義・設計・実装・テスト・運用を一気通貫で。</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="glass p-4 feature">
+            <div class="icon-ring mb-3"><i class="bi bi-cloud-check fs-5"></i></div>
+            <h5 class="fw-bold">クラウド導入支援</h5>
+            <p class="mb-0 text-white-50">AWS/Azure/GCPなど、移行設計・コスト最適化を支援。</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="glass p-4 feature">
+            <div class="icon-ring mb-3"><i class="bi bi-shield-lock fs-5"></i></div>
+            <h5 class="fw-bold">セキュリティ / ガバナンス</h5>
+            <p class="mb-0 text-white-50">ゼロトラスト、権限設計、ログ設計、運用ルール整備。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STRENGTHS -->
+  <section id="strengths" class="py-5">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="glass p-4 p-md-5 h-100">
+            <h2 class="section-title mb-2">選ばれる理由</h2>
+            <p class="section-sub">“速い”だけじゃない。ちゃんと再現性がある。</p>
+
+            <div class="d-flex gap-3 mt-4">
+              <div class="icon-ring"><i class="bi bi-lightning-charge fs-5"></i></div>
+              <div>
+                <h6 class="fw-bold mb-1">高速PoC → 本番まで</h6>
+                <p class="mb-0 text-white-50">小さく試して最短で検証。成果が出る形に仕上げます。</p>
+              </div>
+            </div>
+
+            <div class="d-flex gap-3 mt-4">
+              <div class="icon-ring"><i class="bi bi-people fs-5"></i></div>
+              <div>
+                <h6 class="fw-bold mb-1">伴走型のコミュニケーション</h6>
+                <p class="mb-0 text-white-50">意思決定を早める資料化・合意形成・進捗可視化を徹底。</p>
+              </div>
+            </div>
+
+            <div class="d-flex gap-3 mt-4">
+              <div class="icon-ring"><i class="bi bi-graph-up-arrow fs-5"></i></div>
+              <div>
+                <h6 class="fw-bold mb-1">数字で語る改善</h6>
+                <p class="mb-0 text-white-50">KPI設計、計測、改善サイクルまでを一体で設計します。</p>
+              </div>
+            </div>
+
+            <div class="mt-4 small text-white-50">
+              <i class="bi bi-check2-circle me-1"></i>要件が曖昧でもOK。ヒアリングで整理します。
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="glass p-4 p-md-5 h-100">
+            <h2 class="section-title mb-2">提供価値</h2>
+            <p class="section-sub mb-4">あなたの事業に合わせて「必要なものだけ」を最適提案。</p>
+
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <div class="p-3 rounded-4" style="background: rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.10);">
+                  <div class="fw-bold"><i class="bi bi-speedometer2 me-1"></i>スピード</div>
+                  <div class="small text-white-50">最短で成果が出る道筋を設計</div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="p-3 rounded-4" style="background: rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.10);">
+                  <div class="fw-bold"><i class="bi bi-bricks me-1"></i>拡張性</div>
+                  <div class="small text-white-50">将来の運用・追加開発まで想定</div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="p-3 rounded-4" style="background: rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.10);">
+                  <div class="fw-bold"><i class="bi bi-shield-check me-1"></i>安全性</div>
+                  <div class="small text-white-50">権限/ログ/運用ルールまで設計</div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="p-3 rounded-4" style="background: rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.10);">
+                  <div class="fw-bold"><i class="bi bi-cash-coin me-1"></i>コスト</div>
+                  <div class="small text-white-50">クラウド費用や工数を最適化</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <a href="#contact" class="btn btn-primary">
+                <i class="bi bi-calendar2-check me-2"></i>無料相談を予約
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process" class="py-5">
+    <div class="container">
+      <div class="row align-items-end g-3 mb-4">
+        <div class="col-lg-7">
+          <h2 class="section-title mb-2">進め方</h2>
+          <p class="section-sub mb-0">はじめてでも安心。目的→計測→改善まで、迷わない進行。</p>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-lg-6">
+          <div class="glass p-4 p-md-5 h-100">
+            <div class="timeline">
+              <div class="t-item">
+                <div class="fw-bold mb-1">1. ヒアリング / 現状把握</div>
+                <div class="text-white-50 small">課題・ゴール・制約条件を整理し、優先度を決定します。</div>
+              </div>
+              <div class="t-item">
+                <div class="fw-bold mb-1">2. 提案 / 設計</div>
+                <div class="text-white-50 small">ロードマップ、要件定義、UX、アーキテクチャを設計します。</div>
+              </div>
+              <div class="t-item">
+                <div class="fw-bold mb-1">3. 実装 / 検証</div>
+                <div class="text-white-50 small">PoC→本番の順にリスクを下げながら、成果を最速で実現。</div>
+              </div>
+              <div class="t-item mb-0">
+                <div class="fw-bold mb-1">4. 運用 / 改善</div>
+                <div class="text-white-50 small">KPI計測・改善サイクルを回し、持続的に伸ばします。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="glass p-4 p-md-5 h-100">
+            <h5 class="fw-bold mb-3"><i class="bi bi-clipboard2-data me-2"></i>対応領域（例）</h5>
+            <div class="row g-2">
+              <div class="col-sm-6"><div class="p-3 rounded-4" style="background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.10);">要件定義 / WBS</div></div>
+              <div class="col-sm-6"><div class="p-3 rounded-4" style="background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.10);">UI/UX改善</div></div>
+              <div class="col-sm-6"><div class="p-3 rounded-4" style="background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.10);">API設計</div></div>
+              <div class="col-sm-6"><div class="p-3 rounded-4" style="background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.10);">クラウド構成</div></div>
+              <div class="col-sm-6"><div class="p-3 rounded-4" style="background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.10);">DevOps / CI-CD</div></div>
+              <div class="col-sm-6"><div class="p-3 rounded-4" style="background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.10);">運用設計 / 監視</div></div>
+            </div>
+
+            <div class="mt-4 small text-white-50">
+              <i class="bi bi-lightbulb me-1"></i>
+              課題が「ふわっと」していてもOK。言語化から一緒にやります。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="py-5">
+    <div class="container">
+      <div class="row g-3">
+        <div class="col-lg-5">
+          <div class="glass p-4 p-md-5 h-100">
+            <h2 class="section-title mb-2">会社情報</h2>
+            <p class="section-sub">Jec Consulting Inc.</p>
+
+            <dl class="row mt-4 mb-0 small">
+              <dt class="col-4 text-white-50">会社名</dt>
+              <dd class="col-8">株式会社Jecコンサルティング</dd>
+
+              <dt class="col-4 text-white-50">事業</dt>
+              <dd class="col-8">ITコンサル / システム開発 / クラウド支援</dd>
+
+              <dt class="col-4 text-white-50">所在地</dt>
+              <dd class="col-8">東京都（例）</dd>
+
+              <dt class="col-4 text-white-50">対応</dt>
+              <dd class="col-8">全国 / リモート可</dd>
+            </dl>
+          </div>
+        </div>
+
+        <div class="col-lg-7">
+          <div class="glass p-4 p-md-5 h-100">
+            <h3 class="fw-bold mb-3">メッセージ</h3>
+            <p class="text-white-50 mb-3">
+              私たちは「提案して終わり」ではなく、実装と運用で成果が出るまで伴走します。
+              現場の制約やチーム体制に合わせて、最適な進め方を一緒に作ります。
+            </p>
+
+            <div class="row g-3 mt-2">
+              <div class="col-md-6">
+                <div class="p-4 rounded-4" style="background: rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.10);">
+                  <div class="fw-bold mb-1"><i class="bi bi-check2-circle me-1"></i>わかりやすい提案</div>
+                  <div class="small text-white-50">資料・図解・プロトタイプで合意形成を最速化。</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="p-4 rounded-4" style="background: rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.10);">
+                  <div class="fw-bold mb-1"><i class="bi bi-check2-circle me-1"></i>再現性のある設計</div>
+                  <div class="small text-white-50">運用・保守・改善まで続く仕組みを作ります。</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 d-flex flex-wrap gap-2">
+              <span class="badge badge-soft rounded-pill px-3 py-2"><i class="bi bi-kanban me-1"></i>アジャイル</span>
+              <span class="badge badge-soft rounded-pill px-3 py-2"><i class="bi bi-diagram-2 me-1"></i>設計レビュー</span>
+              <span class="badge badge-soft rounded-pill px-3 py-2"><i class="bi bi-journal-code me-1"></i>ドキュメント整備</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="py-5">
+    <div class="container">
+      <div class="row align-items-end g-3 mb-4">
+        <div class="col-lg-7">
+          <h2 class="section-title mb-2">お問い合わせ</h2>
+          <p class="section-sub mb-0">ご相談は無料です。内容を確認後、1〜2営業日を目安にご連絡します。</p>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-lg-5">
+          <div class="glass p-4 p-md-5 h-100">
+            <h5 class="fw-bold mb-3"><i class="bi bi-headset me-2"></i>連絡先</h5>
+            <p class="text-white-50 mb-4">
+              まずはお気軽にご相談ください。要件が決まっていなくても大丈夫です。
+            </p>
+
+            <div class="d-flex gap-3 mb-3">
+              <div class="icon-ring"><i class="bi bi-envelope fs-5"></i></div>
+              <div>
+                <div class="fw-bold">Email</div>
+                <div class="text-white-50 small">contact@jec-consulting.example</div>
+              </div>
+            </div>
+
+            <div class="d-flex gap-3 mb-3">
+              <div class="icon-ring"><i class="bi bi-geo-alt fs-5"></i></div>
+              <div>
+                <div class="fw-bold">Office</div>
+                <div class="text-white-50 small">Tokyo / Remote</div>
+              </div>
+            </div>
+
+            <div class="d-flex gap-3">
+              <div class="icon-ring"><i class="bi bi-clock fs-5"></i></div>
+              <div>
+                <div class="fw-bold">Hours</div>
+                <div class="text-white-50 small">平日 10:00 - 18:00</div>
+              </div>
+            </div>
+
+            <hr class="border-light opacity-10 my-4">
+
+            <div class="small text-white-50">
+              <i class="bi bi-shield-lock me-1"></i>
+              送信内容はお問い合わせ対応の目的以外には利用しません。
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-7">
+          <div class="glass p-4 p-md-5">
+            <!-- Contact Form -->
+            <form id="contactForm" action="contact.php" method="post" class="needs-validation" novalidate>
+              <div class="row g-3">
+
+                <!-- honeypot (bot対策) -->
+                <input type="text" name="company" class="d-none" tabindex="-1" autocomplete="off">
+
+                <div class="col-md-6">
+                  <label class="form-label">お名前 <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" name="name" placeholder="例）山田 太郎" required>
+                  <div class="invalid-feedback">お名前を入力してください。</div>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">メールアドレス <span class="text-danger">*</span></label>
+                  <input type="email" class="form-control" name="email" placeholder="example@mail.com" required>
+                  <div class="invalid-feedback">正しいメールアドレスを入力してください。</div>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">電話番号（任意）</label>
+                  <input type="tel" class="form-control" name="tel" placeholder="090-xxxx-xxxx">
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">ご相談種別 <span class="text-danger">*</span></label>
+                  <select class="form-select" name="type" required>
+                    <option value="" selected disabled>選択してください</option>
+                    <option>DX/業務改善</option>
+                    <option>Web/業務システム開発</option>
+                    <option>クラウド導入・移行</option>
+                    <option>セキュリティ/運用改善</option>
+                    <option>その他</option>
+                  </select>
+                  <div class="invalid-feedback">ご相談種別を選択してください。</div>
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label">お問い合わせ内容 <span class="text-danger">*</span></label>
+                  <textarea class="form-control" name="message" rows="6" placeholder="目的や困っていること、期限感などを書いてください。" required></textarea>
+                  <div class="invalid-feedback">お問い合わせ内容を入力してください。</div>
+                </div>
+
+                <div class="col-12 d-flex flex-column flex-sm-row gap-2 align-items-sm-center justify-content-between mt-2">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="agree" required>
+                    <label class="form-check-label text-white-50" for="agree">
+                      個人情報の取り扱いに同意します <span class="text-danger">*</span>
+                    </label>
+                    <div class="invalid-feedback">同意が必要です。</div>
+                  </div>
+
+                  <button class="btn btn-primary btn-lg px-4" type="submit">
+                    <i class="bi bi-send me-2"></i>送信する
+                  </button>
+                </div>
+              </div>
+            </form>
+
+            <div class="small text-white-50 mt-3">
+              <i class="bi bi-info-circle me-1"></i>
+              正しく入力するとサーバー（PHP）へ送信され、CSVへ保存されます。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-4">
+    <div class="container">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2">
+        <div class="small text-white-50">
+          © <span id="year"></span> 株式会社Jecコンサルティング. All Rights Reserved.
+        </div>
+        <div class="d-flex gap-3">
+          <a class="link-light link-underline-opacity-0 link-underline-opacity-75-hover small" href="#top">トップへ</a>
+          <a class="link-light link-underline-opacity-0 link-underline-opacity-75-hover small" href="#contact">お問い合わせ</a>
+          <a class="link-light link-underline-opacity-0 link-underline-opacity-75-hover small" href="#about">会社情報</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // submit validation (未入力時だけ止める / 正常ならPHPへ送信)
+    (() => {
+      const form = document.getElementById("contactForm");
+
+      form.addEventListener("submit", (e) => {
+        if (!form.checkValidity()) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+        form.classList.add("was-validated");
+      }, false);
+    })();
+  </script>
+</body>
+</html>
